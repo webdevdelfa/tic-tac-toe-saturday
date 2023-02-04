@@ -1,5 +1,7 @@
 let cells = document.querySelectorAll('#field td');
-let result = document.querySelector('#winner');
+let winner = document.querySelector('#winner');
+let result = document.querySelector('#text');
+let close = document.querySelector('#close');
 
 // cells = [ td1 td2 td3 td4 td5 ]
 
@@ -15,10 +17,10 @@ function start(cells) {
             }
             this.removeEventListener('click', step)
             if (isWinner(cells) === true) {
-                result.style.height = '150px';
+                winner.style.display = 'flex';
                 result.textContent = `Победил ${this.textContent}`;
             } else if (i == 9) {
-                result.style.height = '150px';
+                winner.style.display = 'flex';
                 result.textContent = `Ничья!`;
             };
             i++;
@@ -26,21 +28,15 @@ function start(cells) {
     }
 }
 
-// i=2
-// cell = td1/ td2/ td3 ....
-/* td2.addEventListener('click', function step(){
-    if (2 % 2 == 0) {
-        td2.textContent = '0';
-        } else {
-        td2.textContent = 'X';
-        }
-    i=3;
-    td2.removeEventListener('click', step) 
-    if (isWinner(cells) === true) {
-            alert(`Победитель ${td2.textContent}`);
-        }
-})
-*/
+start(cells);
+
+close.addEventListener('click', function () {
+    winner.style.display = 'none';
+    for (let cell of cells) {
+        cell.textContent = '';
+    }
+    start(cells);
+});
 
 function isWinner(cells) {
     let combs = [
@@ -64,7 +60,7 @@ function isWinner(cells) {
     return false;
 }
 
-start(cells);
+
 
 /*
 cells = [ td1 td2 td3 td4 td5 ]
